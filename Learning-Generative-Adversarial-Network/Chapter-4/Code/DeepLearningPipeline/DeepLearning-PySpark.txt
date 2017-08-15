@@ -1,0 +1,90 @@
+# First start the pysaprk module with the deep learning package from SPARK_HOME/bin.
+
+pyspark --master local[*] --packages databricks:spark-deep-learning:0.1.0-spark2.1-s_2.11
+
+# If you get error (No module named sparkdl) while starting the PySpark with deep learning issue,please check the github page for workaround:
+https://github.com/databricks/spark-deep-learning/issues/18
+
+# Code  with DeepImageFeauturizer
+
+from sparkdl import readImages
+from pyspark.sql.functions import lit
+
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml import Pipeline
+from sparkdl import DeepImageFeaturizer 
+
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+
+# Change the image directory path
+img_dir= “path to base image directory”
+roses_df = readImages(img_dir + "/roses").withColumn("label", lit(1))
+daisy_df = readImages(img_dir + "/daisy").withColumn("label", lit(0))
+roses_train, roses_test = roses_df.randomSplit([0.6, 0.4])
+daisy_train, daisy_test = daisy_df.randomSplit([0.6, 0.4])
+train_df = roses_train.unionAll(daisy_train)
+test_df = roses_test.unionAll(daisy_test)
+
+# Retraining fine tuning
+featurizer = DeepImageFeaturizer(inputCol="image", outputCol="features", modelName="InceptionV3")
+lr = LogisticRegression(maxIter=20, regParam=0.05, elasticNetParam=0.3, labelCol="label")
+p = Pipeline(stages=[featurizer, lr])
+
+p_model = p.fit(train_df)
+
+# Evaluation on test dataframe
+tested_df = p_model.transform(test_df)
+evaluator = MulticlassClassificationEvaluator(metricName="accuracy")
+print("Test set accuracy = " + str(evaluator.evaluate(tested_df.select("prediction", "label"))))
+
+
+# Applying Existing Deep Models
+
+from sparkdl import readImages, DeepImagePredictor
+
+sample_img_dir=<path to your image>
+
+image_df = readImages(sample_img_dir)
+
+predictor = DeepImagePredictor(inputCol="image", outputCol="predicted_labels", modelName="InceptionV3", decodePredictions=True, topK=5)
+predictions_df = predictor.transform(image_df)
+
+predictions_df.select("filePath", "predicted_labels").show(10,False)
+
+
+# Applying pre-trained Keras model
+
+from keras.applications import InceptionV3
+from keras.applications.inception_v3 import preprocess_input
+from keras.preprocessing.image import img_to_array, load_img
+import numpy as np
+from pyspark.sql.types import StringType
+from sparkdl import KerasImageFileTransformer
+
+#save the Keras InceptionV3 model to be used later for prediction
+
+model = InceptionV3(weights="imagenet")
+model.save('model-full.h5')  
+
+def loadAndPreprocessKerasInceptionV3(uri):
+    # this is a typical way to load and prep images in keras
+    image = img_to_array(load_img(uri, target_size=(299, 299)))
+    image = np.expand_dims(image, axis=0)
+    return preprocess_input(image)
+
+transformer = KerasImageFileTransformer(inputCol="uri", outputCol="predictions",
+                                        modelFile="model-full.h5",
+                                        imageLoader=loadAndPreprocessKerasInceptionV3,
+                                        outputMode="vector")
+
+dirpath=<path to mix-img>
+
+files = [os.path.abspath(os.path.join(dirpath, f)) for f in os.listdir(dirpath) if f.endswith('.jpg')]
+uri_df = sqlContext.createDataFrame(files, StringType()).toDF("uri")
+
+final_df = transformer.transform(uri_df)
+final_df.select("uri", "predictions”).show()
+
+
+
