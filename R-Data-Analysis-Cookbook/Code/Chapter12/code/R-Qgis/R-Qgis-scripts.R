@@ -1,6 +1,6 @@
 Plot.rsx
 ———————
-##Point pattern analysis=group
+##Point-pattern-analysis=group
 ##showplots
 ##Layer=vector
 ##X=Field Layer
@@ -16,7 +16,7 @@ ylab(Y)
 
 RandomSampling.rsx
 ——————————————
-##Point pattern analysis=group
+##Point-pattern-analysis=group
 ##Layer=vector
 ##Size=number 10
 ##Output= output vector
@@ -25,7 +25,7 @@ Output=SpatialPointsDataFrame(pts, as.data.frame(pts))
 
 Ripley-Rasson.rsx
 ——————————————
-##[Point pattern analysis]=group
+##Point-pattern-analysis=group
 ##Layer=vector
 ##Output=output vector
 library("spatstat")
