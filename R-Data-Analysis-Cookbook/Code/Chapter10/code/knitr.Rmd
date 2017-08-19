@@ -1,0 +1,61 @@
+---
+title: "Markdown Document"
+author: "Kuntal Ganguly"
+date: "August 15, 2017"
+output:
+  html_document:
+    theme: cosmo
+    toc: yes
+  word_document: default
+  pdf_document:
+    toc: yes
+---
+* * *
+# Introduction
+This is an *R Markdown document*. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+# HTML Content
+<p> This is a new paragraph written with the HTML tag 
+<table border=1> 
+<th> Pros </th>
+
+<th> Cons </td>
+<tr>
+<td>Easy to use</td>
+<td>Need to Plan ahead </td>
+<tr> 
+</table>
+<hr/>
+
+# Embed Code
+## Set Directory
+You can embed any R code chunk within 3 ticks. If you add echo=FALSE the code chunk is not displayed in the document. We can set knitr options either globally or within a code segment. The options set globally are used throughout the document. 
+
+We set the root.dir before loading any files. By enabling cache=TRUE, a code chunk is executed only when there is a change from the prior execution. This enhances knitr performance.
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE} 
+knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_knit$set(root.dir = "/Users/kuntalg/projects/RCookbook/chapter8/") 
+```
+
+## Load data
+
+```{r loadData, echo=FALSE}
+auto <- read.csv("auto-mpg.csv")
+```
+
+<test_link>
+
+### Plot Data
+```{r plotData }
+plot(auto$mpg~auto$weight)
+```
+
+### Plot with format options
+```{r plotFormatData, echo=FALSE, fig.height=4, fig.width=8}
+plot(auto$mpg~auto$weight)
+str(auto)
+```
+There are `r nrow(auto)` cars in the auto data set. 

@@ -1,0 +1,10 @@
+q()
+setwd("C:/Users/AnushreeAT/Desktop/2825/Final Codes/B02825_06_Codes/data")
+Sys.Date()
+# Supply year as two digits
+# Note correspondence between separators in the
+# date string and the format string
+as.Date("1/1/80", format = "%m/%d/%y")
+# Supply year as 4 digits
+# Note uppercase Y below instead of lowercase y as above
+as.Date("1/1/1980", format = "%m/%d/%Y")

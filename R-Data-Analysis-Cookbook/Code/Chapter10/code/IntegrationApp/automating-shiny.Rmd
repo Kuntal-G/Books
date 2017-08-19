@@ -1,0 +1,32 @@
+---
+title: "Integrating Shiny with Knitr"
+author: "Kuntal Ganguly"
+date: "August 15,2017"
+output: html_document
+---
+
+```{r, echo=FALSE}
+library(webshot)
+appshot(app = "app/", file = "app.png", vheight = 300)
+knitr::include_graphics("app.png")
+```
+
+### Code of ui.R
+
+```{r, cache=FALSE, echo=FALSE}
+knitr::read_chunk("app/ui.R")
+```
+
+```{r ui, eval=FALSE}
+```
+
+### Code of server.R
+
+```{r, cache=FALSE, echo=FALSE}
+knitr::read_chunk("app/server.R")
+```
+
+```{r server, eval=FALSE}
+```
+
+

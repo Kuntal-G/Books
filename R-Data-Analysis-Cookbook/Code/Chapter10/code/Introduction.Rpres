@@ -1,0 +1,59 @@
+Introduction
+========================================================
+author: Shanthi Viswanathan
+date: 16 Dec 2014
+font-family: Arial
+transition:rotate
+transition-speed:slow
+
+Slide with image
+===
+![Sample Image](sample-image.png)
+
+Two Columns
+===============
+left:40%
+
+**ColumnOne**
+- this slide has two columns
+-	the first column has text
+-	the second column has an image
+
+***
+**ColumnTwo**
+
+![Sample Image](sample-image.png)
+
+Incrememntal Display
+========================================================
+transition: concave
+incremental:true
+
+For more details on authoring R presentations click the
+**Help** button on the toolbar.
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+Slide With Code
+========================================================
+
+```{r}
+summary(cars)
+```
+
+
+Slide with plot which I want to fill the whole screen
+========================================================
+title: false
+```{r myplot,echo=FALSE,out.width="1920px"}
+plot(cars)
+```
+
+Slide With Plot
+========================================================
+
+```{r, echo=FALSE}
+plot(cars)
+```

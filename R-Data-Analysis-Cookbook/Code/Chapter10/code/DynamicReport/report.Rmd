@@ -1,0 +1,16 @@
+---
+title: "Download report"
+author: "Kuntal Ganguly"
+output: html_document
+params:
+  n: NA
+---
+```{r}
+auto <- read.csv("auto-mpg.csv")
+str(auto)
+```
+
+```{r}
+# Plot the data
+plot(as.formula(paste(params$n,"~mpg")),data=auto)
+```
