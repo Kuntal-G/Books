@@ -5,7 +5,9 @@
 #--------------------------------
 
 AMZN=read.csv("AMZN.csv",stringsAsFactors = FALSE)
+str(AMZN)
 GOOG=read.csv("GOOG.csv",stringsAsFactors = FALSE)
+head(GOOG, 5)
 
 AMZN$Date=as.Date(AMZN$Date)
 GOOG$Date=as.Date(GOOG$Date)
