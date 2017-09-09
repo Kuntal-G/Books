@@ -35,7 +35,7 @@ hello
 
 greet <- .jnew("javasamples.Greeting")
 print(greet)
-g <- .jcall(greet,"S", "getString", "Shanthi")
+g <- .jcall(greet,"S", "getString", "Kuntal")
 print(g)
 .jstrVal(g)
 

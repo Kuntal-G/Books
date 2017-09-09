@@ -16,10 +16,10 @@ dat <- read.csv("http://www.exploredata.net/ftp/WHO.csv")
 
 # Recipe: Reading XML Data
 
-if (!require("XML")) install.packages("XML")
+if (!require("XML")) install.packages("XML","RCurl")
 library(XML)
 
-url <- "http://www.w3schools.com/xml/cd_catalog.xml"
+url <- "cd_catalog.xml"
 
 xmldoc <- xmlParse(url)
 rootNode <- xmlRoot(xmldoc)
@@ -28,12 +28,13 @@ data <- xmlSApply(rootNode,function(x) xmlSApply(x, xmlValue))
 cd.catalog <- data.frame(t(data),row.names=NULL)
 cd.catalog[1:2,]
 
-url <- "http://en.wikipedia.org/wiki/World_population"
+url <- "WorldPopulation-wiki.htm"
+
 tables <- readHTMLTable(url)
-world.pop <- tables[[5]]
-
-table <- readHTMLTable(url,which=5)
-
+world.pop <- tables[[6]]
+world.pop
+table <- readHTMLTable(url,which=6)
+table
 # Recipe: Reading JSON data
 
 if (!require("jsonlite")) install.packages("jsonlite")
@@ -257,7 +258,13 @@ housing.dat$rad <- impute(housing.dat$rad, 6)
 
 summary(housing.dat)
 
+install.packages("mice")
+library(mice)
+md.pattern(housing.dat)
 
+install.packages("VIM")
+library(VIM)
+aggr_plot <- aggr(housing.dat, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(housing.dat), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
 
 # Recipe: Correcting data
 
@@ -378,3 +385,8 @@ par(mfrow = c(1, 2))
 boxplot(ozoneData$pressure_height, main="Pressure Height with Outliers", boxwex=0.1)
 boxplot(capped_pressure_height, main="Pressure Height without Outliers", boxwex=0.1)
 
+install.packages("DMwR")
+library(DMwR)
+outlier.scores <- lofactor(ozoneData, k=3)
+outliers <- order(outlier.scores, decreasing=T)[1:3]
+print(outliers)

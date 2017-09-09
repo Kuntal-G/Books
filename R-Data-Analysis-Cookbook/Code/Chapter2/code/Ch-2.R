@@ -212,7 +212,7 @@ bwplot(~mpg|cyl.factor, data=auto,main="MPG by Number Of Cylinders",
 
 # Recipe: Creating charts that facilitate comparisons
 # --------------------------------------------------
- library(ggplot2)
+
  library(dplyr)
  library(beanplot)
 
@@ -226,11 +226,6 @@ bike.sum =bike %>%
 group_by(season, workingday) %>%
 summarize(rental = sum(cnt))
 
-ggplot(bike.sum, aes(x= season, y= rental))
- + geom_bar(show.legend = TRUE, stat = "identity")
- + labs(title = "Rentals for Season and Day")
-
-ggplot(bike.sum, aes(x= season, y= rental, fill = workingday, label = scales::comma(rental))) + geom_bar(show.legend = TRUE, stat = "identity") + labs(title = "Rentals for Season and Day") + scale_y_continuous(labels = scales::comma) + geom_text(size = 3, position = position_stack(vjust = 0.5)
 
 par(mfrow = c(2,2))
 spring <- subset(bike, season == "Spring")$cnt
@@ -249,7 +244,7 @@ hist(summer, prob=TRUE, xlab = "Summer daily rentals", main = "")
  abline(v = median(summer), col = "blue")
 
  hist(fall, prob=TRUE, xlab = "Fall daily rentals", main = "")
->lines(density(fall))
+lines(density(fall))
 abline(v = mean(fall), col = "red")
 abline(v = median(fall), col = "blue")
 
@@ -259,26 +254,12 @@ hist(winter, prob=TRUE, xlab = "Winter daily rentals", main = "")
 abline(v = median(winter), col = "blue")
 
 
-
-qplot(cnt, data = bike) + facet_wrap(~ season, nrow=2) + geom_histogram(fill = "blue") +
- geom_vline(xintercept = mean(cnt), colour = "red")+
- labs(x = "Rentals", y= "Frequency", title = "Rentals Frequency by Season") +
- theme(plot.title = element_text(hjust = 0.5))
-
-
- qplot(cnt, data = bike, fill = season) + labs(x = "Rentals", y= "Frequency", title = "Rentals Frequency by Season") + theme(plot.title = element_text(hjust = 0.5))
-
- ggplot(bike, aes(x = season, y = cnt)) + geom_boxplot()
-
- qplot(season, cnt, data = bike, geom = c("boxplot"), fill = season) + labs(x = "Season", y= "Frequency", title = "Rentals Frequency by Season") + theme(plot.title = element_text(hjust = 0.5))
-
-
  beanplot(bike$cnt ~ bike$season, col = c("blue", "red", "yellow"))
 
 
  # Recipe: Creating charts that help to visualize possible causality
  # --------------------------------
- library(ggplot2)
+ library(lattice)
  bike <- read.csv("daily-bike-rentals.csv")
  bike$season <- factor(bike$season, levels = c(1,2,3,4),
     labels = c("Spring", "Summer", "Fall", "Winter"))
@@ -287,52 +268,16 @@ qplot(cnt, data = bike) + facet_wrap(~ season, nrow=2) + geom_histogram(fill = "
  bike$dteday = as.Date(bike$dteday, format = "%Y-%m-%d")
 attach(bike)
 
- qplot(weathersit, cnt, data = bike, geom = c("boxplot"), fill = weathersit) +
-labs(x = "Weathersit", y= "Frequency", title = "Rentals Frequency by Weathersit") +
-theme(plot.title = element_text(hjust = 0.5)) +
-geom_jitter(shape=1, position=position_jitter(.20))
+ 
+ 
+ bwplot(cnt ~ weathersit, data=bike, layout=c(1,1),xlab = "Weathersit", ylab = "Frequency",
+        par.settings = list(box.rectangle = list(fill= rep(c('red','yellow','green'),2))))
+ 
+ bwplot(cnt ~ weathersit,xlab = "Weathersit", ylab = "Frequency",panel=function(x,y,...){
+   panel.bwplot(x,y,...)
+   panel.stripplot(x,y,jitter.data = TRUE,...)
+ }, par.settings = list(box.rectangle = list(fill= rep(c('red','yellow','green'),2))))
+ 
+ 
+ 
 
-qplot(weathersit, cnt, data = bike, geom = c("violin"), fill = weathersit) + labs(x = "Weathersit", y= "Frequency", title = "Rentals Frequency by Weathersit") + theme(plot.title = element_text(hjust = 0.5)) + geom_dotplot(binaxis='y', stackdir='center', dotsize=.5)
-
-
-qplot(weathersit, cnt, data = bike, geom = c("violin"), fill = weathersit) + labs(x = "Weathersit", y= "Frequency", title = "Rentals Frequency by Weathersit") + theme(plot.title = element_text(hjust = 0.5)) + geom_dotplot(binaxis='y', stackdir='center', dotsize=.5)
-
-qplot(weathersit, cnt, data = bike, geom = c("violin"), fill = weathersit) + labs(x = "Weathersit", y= "Frequency", title = "Rentals Frequency by Weathersit") + theme(plot.title = element_text(hjust = 0.5)) + geom_boxplot(width = .3)
-
-ggplot(bike, aes(x = dteday, y = cnt)) + geom_line()+ labs(x = "Date", y= "Rentals", title = "Rentals by Time and Weathersit") + theme(plot.title = element_text(hjust = 0.5))
-
-
-ggplot(bike, aes(x = dteday, y = cnt, colour = weathersit)) + geom_line()+ labs(x = "Date", y= "Rentals", title = "Rentals by Time and Weathersit") + theme(plot.title = element_text(hjust = 0.5)) + facet_grid(weathersit ~.)
-
-
-# Recipe: Create multivariate plots
-# --------------------------------
-library(ggplot2)
-library(GGally)
-bike <- read.csv("daily-bike-rentals.csv")
-bike$season <- factor(bike$season, levels = c(1,2,3,4),
-  labels = c("Spring", "Summer", "Fall", "Winter"))
-bike$weathersit <- factor(bike$weathersit, levels = c(1,2,3),
-  labels = c("Clear", "Misty/cloudy", "Light snow"))
-bike$windspeed.fac <- cut(bike$windspeed, breaks=3,
-  labels=c("Low", "Medium", "High"))
-bike$weekday <- factor(bike$weekday, levels = c(0:6),
-  labels = c("Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"))
-attach(bike)
-
-plot <- ggplot(bike,aes(temp,cnt))
-
-plot + geom_point(size=3, aes(color=factor(windspeed))) +
-    geom_smooth(method="lm", se=FALSE, col="red") +
-    facet_grid(weekday ~ season) + theme(legend.position="bottom")
-
-
-auto <- read.csv("auto-mpg.csv", stringsAsFactors=FALSE)
-auto$cylinders <- factor(auto$cylinders,labels=c("3cyl","4cyl", "5cyl","6cyl","8cyl"))
-
-ggpairs(auto[,2:5])
-
-ggpairs(auto[,2:5], aes(colour = cylinders, alpha = 0.4 ), title = "Multivariate Analysis") + theme(plot.title = element_text(hjust = 0.5))
-
-
-ggpairs(auto[,2:5], aes(colour = cylinders, alpha = 0.4 ), title = "Multivariate Analysis", upper = list(continuous = "density"), lower = list(combo = "denstrip")) + theme(plot.title = element_text(hjust = 0.5))

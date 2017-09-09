@@ -112,6 +112,7 @@ plot(perf)
 
 library(randomForest)
 library(caret)
+library(ROCR)
 
 bn <- read.csv("banknote-authentication.csv")
 bn$class <- factor(bn$class)
