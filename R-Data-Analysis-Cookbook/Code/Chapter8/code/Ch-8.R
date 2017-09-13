@@ -337,6 +337,8 @@ result
 
 #Credit Card Fraud Detection
 #==================================
+# First download the file creditcard.csv from the following link:
+# https://drive.google.com/open?id=0B1Xq4UfDrwumZ1B1ank3UGxQX1U
 install.packages("caret")
 install.packages("pROC")
 install.packages("DMwR")
