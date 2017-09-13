@@ -16,7 +16,7 @@ dat <- read.csv("http://www.exploredata.net/ftp/WHO.csv")
 
 # Recipe: Reading XML Data
 
-if (!require("XML")) install.packages("XML","RCurl")
+install.packages("XML")
 library(XML)
 
 url <- "cd_catalog.xml"

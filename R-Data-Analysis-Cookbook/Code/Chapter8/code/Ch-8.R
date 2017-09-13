@@ -46,6 +46,21 @@ recommender_models <- recommenderRegistry$get_entries(dataType = "realRatingMatr
 names(recommender_models)
 
 
+image(MovieLense, main = "Heatmap of the rating matrix")
+
+min_n_movies <- quantile(rowCounts(MovieLense), 0.99)
+min_n_users <- quantile(colCounts(MovieLense), 0.99)
+image(MovieLense[rowCounts(MovieLense) > min_n_movies,colCounts(MovieLense) > min_n_users], main ="Heatmap of the top users and movies")
+
+ratings_movies <- MovieLense[rowCounts(MovieLense) > 50,colCounts(MovieLense) > 100]
+min_movies <- quantile(rowCounts(ratings_movies), 0.98)
+
+min_users <- quantile(colCounts(ratings_movies), 0.98)
+image(ratings_movies[rowCounts(ratings_movies) > min_movies,colCounts(ratings_movies) > min_users], main = "Heatmap of the top users and movies")
+
+
+
+
 ratings_movies_viewed <- binarize(ratings_movies, minRating = 1)
 
 which_train <- sample(x = c(TRUE, FALSE), size = nrow(ratings_movies_viewed),
