@@ -258,6 +258,8 @@ housing.dat$rad <- impute(housing.dat$rad, 6)
 
 summary(housing.dat)
 
+#---- Visualize missing information
+
 install.packages("mice")
 library(mice)
 md.pattern(housing.dat)
@@ -385,6 +387,7 @@ par(mfrow = c(1, 2))
 boxplot(ozoneData$pressure_height, main="Pressure Height with Outliers", boxwex=0.1)
 boxplot(capped_pressure_height, main="Pressure Height without Outliers", boxwex=0.1)
 
+#-- lof outlier detection
 install.packages("DMwR")
 library(DMwR)
 outlier.scores <- lofactor(ozoneData, k=3)

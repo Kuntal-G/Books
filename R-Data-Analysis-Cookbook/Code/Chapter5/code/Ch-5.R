@@ -54,7 +54,7 @@ install.packages(c("OpenImageR","ClusterR"))
 library(OpenImageR)
 library(ClusterR)
 
-img = readImage("om.jpg")
+img = readImage("bird.jpg")
 img_resize = resizeImage(img, 350, 350, method = 'bilinear') 
 imageShow(img_resize) 
 
