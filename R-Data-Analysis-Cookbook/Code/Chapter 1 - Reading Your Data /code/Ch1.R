@@ -267,7 +267,7 @@ md.pattern(housing.dat)
 
 install.packages("VIM")
 library(VIM)
-aggr_plot <- aggr(housing.dat, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(housing.dat), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
+aggr_plot <- aggr(housing.dat, col=c('blue','red'), numbers=TRUE, sortVars=TRUE, labels=names(housing.dat), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
 
 # Recipe: Correcting data
 
