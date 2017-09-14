@@ -1,4 +1,5 @@
-# Code for chapter 1 of R Data Analysis Cookbook by Kuntal Ganguly and Viswa Viswanathan
+# Code snippets for Chapter 1 of R Data analysis cookbook-2nd Edition
+# ===================================================================
 
 # Recipe: Acquire and prepare your ingredients -- Your Data
 

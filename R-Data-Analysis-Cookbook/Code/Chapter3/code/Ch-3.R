@@ -1,6 +1,6 @@
 
-#Code snippets for Chapter 3 of R Data analysis cookbook
-#=======================================================
+#Code snippets for Chapter 3 of R Data analysis cookbook-2nd Edition
+# ===================================================================
 
 #Recipe: Generating error/classification-confusion matrix
 #------------------------------------------------------

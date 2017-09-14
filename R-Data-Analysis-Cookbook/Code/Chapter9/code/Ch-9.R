@@ -1,3 +1,7 @@
+# Code snippets for Chapter 9 of R Data analysis cookbook-2nd Edition
+# ===================================================================
+
+
 #1. Downloading social network data using public APIs
 # From www.meetup.com download groups data into groups.json
 

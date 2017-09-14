@@ -1,3 +1,6 @@
+# Code snippets for Chapter 7 of R Data analysis cookbook-2nd Edition
+# ===================================================================
+
 # Creating ScatterPlots
 install.packages("ggplot2")
 library(ggplot2)

@@ -1,5 +1,5 @@
-#Code snippets for Chapter 4 of R Data Analysis Cookbook
-
+# Code snippets for Chapter 4 of R Data analysis cookbook-2nd Edition
+# ===================================================================
 
 #Recipe: Computing the Root Mean Squared (RMS) error
 

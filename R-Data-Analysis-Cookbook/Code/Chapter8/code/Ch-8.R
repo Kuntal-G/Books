@@ -1,3 +1,6 @@
+# Code snippets for Chapter 8 of R Data analysis cookbook-2nd Edition
+# ===================================================================
+
 #Collaborative filtering
 #==================================
 install.packages("recommenderlab")

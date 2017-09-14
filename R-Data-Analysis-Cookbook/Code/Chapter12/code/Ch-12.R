@@ -1,3 +1,6 @@
+# Code snippets for Chapter 12 of R Data analysis cookbook-2nd Edition
+# ===================================================================
+
 # 1 Downloading and plotting  a Google map of an area
 install.packages("RgoogleMaps")
 library(RgoogleMaps)

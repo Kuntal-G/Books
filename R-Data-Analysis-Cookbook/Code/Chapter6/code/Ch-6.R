@@ -1,5 +1,5 @@
-#Code snippets for Chapter 6
-#===========================
+# Code snippets for Chapter 6 of R Data analysis cookbook-2nd Edition
+# ===================================================================
 
 #Recipe: Exploring Finance data
 #--------------------------------

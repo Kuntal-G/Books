@@ -1,6 +1,10 @@
+# Code snippets for Chapter 13 of R Data analysis cookbook-2nd Edition
+# ===================================================================
+
+
 # Using Java objects in R
 
-install.packages(‘rJava’)
+install.packages('rJava')
 library(rJava)
 .jinit()
 .jcall("java/lang/System", "S", "getProperty", "java.runtime.version")
@@ -47,38 +51,38 @@ jvm.props
 .jmethods(s,"trim")
 .jmethods(s)
 
-export R_HOME=/Library/Frameworks/R.framework/Resources
-export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin/
+# export R_HOME=/Library/Frameworks/R.framework/Resources
+# export PATH=$PATH:/Library/Frameworks/R.framework/Resources/bin/
 
 # Using JRI to call R functions from Java
 
-From javasamples directory::
+#From javasamples directory::
 
-javac -cp .:../lib/* *java
+# javac -cp .:../lib/* *java
 
-java  -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri -cp ..:../lib/* javasamples.SimpleJRIStat
+# java  -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri -cp ..:../lib/* javasamples.SimpleJRIStat
 
-java -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri/ -cp ..:../lib/* javasamples.SimplePlot /Users/sv/book/Chapter11
+# java -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri/ -cp ..:../lib/* javasamples.SimplePlot /Users/sv/book/Chapter11
 
 # Using Rserv to call R functions from Java
 
-install.packages(“Rserve”)
+install.packages('Rserve')
 library(Rserve)
-Rserve(args="--no-save")  — on Mac, Rserve() on windows
+Rserve(args="--no-save")  #— on Mac, Rserve() on windows
 
 # in the following command, be sure to change the last command argument to point
 # to where you have the auto-mpg.csv file
-java -cp ..:../lib/* javasamples.SimpleGGPlot /Users/sv/book/Chapter11
+# java -cp ..:../lib/* javasamples.SimpleGGPlot /Users/sv/book/Chapter11
 
-java -cp ..:../lib/* javasamples.SimpleRservStat
+# java -cp ..:../lib/* javasamples.SimpleRservStat
 
 # Executing R script from Java
 
-java -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri/ -cp ..:../lib/* javasamples.InvokeRScript mpg weight /Users/sv/book/Chapter11
+# java -Djava.library.path=/Library/Frameworks/R.framework/Resources/library/rJava/jri/ -cp ..:../lib/* javasamples.InvokeRScript mpg weight /Users/sv/book/Chapter11
 
 # Using xlsx to connect to Excel
 
-library(xlsx)   —we are not discussing XLConnect package here.
+library(xlsx)   #—we are not discussing XLConnect package here.
 auto <- read.csv("auto-mpg.csv", stringsAsFactors=FALSE)
 
 write.xlsx(auto, file = "auto.xlsx", sheetName = "autobase", row.names = FALSE)
@@ -186,8 +190,8 @@ crime_collection$count('{"PrimaryType" : "ASSAULT" }')
 
 crimes%>%group_by(PrimaryType)%>%summarize(Count=n())%>%arrange(desc(Count))%>%head(5)
 
-> library(ggplot2)
-> crime_collection$aggregate('[{"$group":{"_id":"$LocationDescription", "Count": {"$sum":1}}}]')%>%na.omit()%>%
+library(ggplot2)
+crime_collection$aggregate('[{"$group":{"_id":"$LocationDescription", "Count": {"$sum":1}}}]')%>%na.omit()%>%
 arrange(desc(Count))%>%head(10)%>%
 ggplot(aes(x=reorder(`_id`,Count),y=Count))+
 geom_bar(stat="identity",fill='#c37600')+geom_text(aes(label = Count), color = "blue") +coord_flip()+xlab("Location Description")
@@ -217,8 +221,8 @@ devtools::install_github('apache/spark@v2.1.1', subdir='R/pkg')
 .libPaths(c(file.path(Sys.getenv('SPARK_HOME'), 'R', 'lib'), .libPaths()))
 sparkR.session()
 
- irisDF <- createDataFrame(iris) //Create a Spark DataFrame
- showDF(irisDF,4) //Print the contents of the Spark DataFrame
+ irisDF <- createDataFrame(iris) #Create a Spark DataFrame
+ showDF(irisDF,4) #Print the contents of the Spark DataFrame
 
 
  subIrisDF <- select(irisDF, c("Sepal_Length","Petal_Length"))
@@ -238,9 +242,7 @@ aggrIrishDF$avg_sepal_len <- format_number(aggrIrishDF$avg_sepal_len,2)
  #Create a view of the Dataframe to run SQL over the data
  createOrReplaceTempView(irisDF,"iris_vw")
  collect(sql("SELECT * FROM iris_tbl LIMIT 5"))
-collect(sql("SELECT Species, avg(Sepal_Length)
-avg_sepal_length, avg(Sepal_Width) avg_sepal_width FROM iris_tbl
-GROUP BY Species ORDER BY avg_sepal_length desc")
+collect(sql("SELECT Species, avg(Sepal_Length) avg_sepal_length, avg(Sepal_Width) avg_sepal_width FROM iris_tbl GROUP BY Species ORDER BY avg_sepal_length desc"))
 
 #Classification with SparkR
  df <- read.df("boston-housing-logistic.csv", "csv", header = "true", inferSchema = "true", na.strings = "NA")

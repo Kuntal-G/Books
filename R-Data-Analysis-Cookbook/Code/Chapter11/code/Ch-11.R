@@ -1,3 +1,7 @@
+# Code snippets for Chapter 11 of R Data analysis cookbook-2nd Edition
+# ===================================================================
+
+
 #Recipe-1. Exploiting vectorized operations
 
 first.name <- c("John", "Jane", "Tom", "Zach")

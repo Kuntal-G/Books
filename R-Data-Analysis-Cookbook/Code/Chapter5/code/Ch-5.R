@@ -1,5 +1,5 @@
-#Code snippets for Chapter 5
-#===========================
+# Code snippets for Chapter 5 of R Data analysis cookbook-2nd Edition
+# ===================================================================
 
 
 #Recipe: Performing Cluster analysis using hierarchical clustering
