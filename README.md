@@ -1,7 +1,7 @@
 # R Data Analysis Cookbook - Second Edition
 ### A journey from Data Analysis to Data Driven Insights
 
-Dive into the world of data science and dat analysis leveraging the power of R and analytics to transform data into actionable insights. This book will teach you how you can put your data analysis and machine learning skills in R to practical use, with recipes catering to the basic as well as advanced data analysis tasks. Right from acquiring your data and preparing it for analysis to the more complex data analysis techniques, the book will show you how you can implement each technique in the best possible manner.By the end of this book, you will have all the knowledge you need to become an expert in data analysis with R, and put your skills to test in real-world scenarios. I will also be adding various R scripts and bonus content here from time to time. Keep watching this space!
+Dive into the world of data science and data analysis leveraging the power of R and analytics to transform data into actionable insights. This book will teach you how you can put your data analysis and machine learning skills in R to practical use, with recipes catering to the basic as well as advanced data analysis tasks. Right from acquiring your data and preparing it for analysis to the more complex data analysis techniques, the book will show you how you can implement each technique in the best possible manner.By the end of this book, you will have all the knowledge you need to become an expert in data analysis with R, and put your skills to test in real-world scenarios. I will also be adding various R scripts and bonus content here from time to time. Keep watching this space!
 
 
 ## Get the book
