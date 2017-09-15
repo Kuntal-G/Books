@@ -11,7 +11,8 @@ Dive into the world of data science and dat analysis leveraging the power of R a
     <img src="./image_gallery/R-packt_logo.png" alt="packt" align="left"/>
     </a></td>
     <td>
-  *  Key Features of the book*
+ 
+ *Key Features of the book*
 
 * Acquire, format and visualize your data using R
 * Using R to perform an Exploratory data analysis
